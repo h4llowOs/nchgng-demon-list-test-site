@@ -2,7 +2,6 @@ import { store } from "../main.js";
 import { embed } from "../util.js";
 import { score } from "../score.js";
 import { fetchEditors, fetchList } from "../content.js";
-
 import Spinner from "../components/Spinner.js";
 import LevelAuthors from "../components/List/LevelAuthors.js";
 
@@ -98,43 +97,28 @@ export default {
                             </li>
                         </ol>
                     </template>
-                    <h3>Submission Requirements</h3>
-                    <p>
-                        Achieved the record without using hacks (however, FPS bypass is allowed, up to any fps)
-                    </p>
-                    <p>
-                    Forward from the date of June 12th 2026, we will no longer be accepting records that have no recording and do not follow the requirements.
-                     </p>
-                    <p>
-                       CBF may be utilized for records, but tps bypass is strictly prohibited.
-                     </p>
-                    <p>
-                       If no progress is made on an upcoming level in over 2 weeks, it will be removed from the list (Only applies to levels without significant progress of 70% or more)
-                     </p>
-                    <p>
-                      Unrated / Shitty levels may be added to the list, but only if their original version is not on the list. Submit levels to be added via the Discord.
-                     </p>
-                    <p>
-                        Achieved the record on the level that is listed on the site - please check the level ID before you submit a record
-                    </p>
-                    <p>
-                        Have either source audio or clicks/taps in the video. Edited audio only does not count
-                    </p>
-                    <p>
-                        The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt. Everyplay records are exempt from this
-                    </p>
-                    <p>
-                        The recording must also show the player hit the endwall, or the completion will be invalidated.
-                    </p>
-                    <p>
-                        Do not use secret routes or bug routes
-                    </p>
-                    <p>
-                        Do not use easy modes, only a record of the unmodified level qualifies
-                    </p>
-                    <p>
-                        Once a level falls onto the Legacy List, we accept records for it for 24 hours after it falls off, then afterwards we never accept records for said level
-                    </p>
+                    
+                    <h3 @click="showRules = !showRules" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none;">
+                        Submission Requirements
+                        <span style="font-size: 0.6em; transition: transform 0.2s ease;">
+                            {{ showRules ? '▼' : '▲' }}
+                        </span>
+                    </h3>
+                    
+                    <div v-show="showRules" class="rules-content">
+                        <p> Achieved the record without using hacks (however, FPS bypass is allowed, up to any fps) </p>
+                        <p> Forward from the date of June 12th 2026, we will no longer be accepting records that have no recording and do not follow the requirements. </p>
+                        <p> CBF may be utilized for records, but tps bypass is strictly prohibited. </p>
+                        <p> If no progress is made on an upcoming level in over 2 weeks, it will be removed from the list (Only applies to levels without significant progress of 70% or more) </p>
+                        <p> Unrated / Shitty levels may be added to the list, but only if their original version is not on the list. Submit levels to be added via the Discord. </p>
+                        <p> Achieved the record on the level that is listed on the site - please check the level ID before you submit a record </p>
+                        <p> Have either source audio or clicks/taps in the video. Edited audio only does not count </p>
+                        <p> The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt. Everyplay records are exempt from this </p>
+                        <p> The recording must also show the player hit the endwall, or the completion will be invalidated. </p>
+                        <p> Do not use secret routes or bug routes </p>
+                        <p> Do not use easy modes, only a record of the unmodified level qualifies </p>
+                        <p> Once a level falls onto the Legacy List, we accept records for it for 24 hours after it falls off, then afterwards we never accept records for said level </p>
+                    </div>
                 </div>
             </div>
         </main>
@@ -146,7 +130,8 @@ export default {
         selected: 0,
         errors: [],
         roleIconMap,
-        store
+        store,
+        showRules: true,
     }),
     computed: {
         level() {
@@ -156,7 +141,6 @@ export default {
             if (!this.level.showcase) {
                 return embed(this.level.verification);
             }
-
             return embed(
                 this.toggledShowcase
                     ? this.level.showcase
@@ -186,7 +170,6 @@ export default {
                 this.errors.push("Failed to load list editors.");
             }
         }
-
         this.loading = false;
     },
     methods: {
