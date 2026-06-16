@@ -1,3 +1,8 @@
+.page-list {
+    display: flex;
+    width: 100%;
+}
+
 .page-list .list-container, .page-list .level-container, .page-list .meta-container { 
     padding-block: 2rem; 
 } 
@@ -6,7 +11,11 @@
     padding-inline: 1rem; 
 } 
 
-/* Dynamic Setup for Meta Container Wrapper */
+.page-list .level-container {
+    flex-grow: 1;
+    transition: max-width 0.3s ease;
+}
+
 .page-list .meta-container { 
     position: relative;
     padding-right: 2rem; 
@@ -16,42 +25,44 @@
     width: 100%;
 } 
 
-/* Styles when sidebar is hidden */
 .page-list .meta-container.meta-hidden {
-    min-width: 40px;
-    max-width: 40px;
+    min-width: 0px;
+    max-width: 0px;
     padding-inline: 0;
     padding-right: 0;
 }
 
-/* Hides all actual rules content inside panel when active */
 .page-list .meta-container.meta-hidden .meta {
     display: none;
 }
 
-/* The toggle styling handle positioning */
 .page-list .meta-toggle-btn {
     position: absolute;
     top: 2rem;
-    left: -15px; /* Adjust slightly based on your exact layout borders */
-    z-index: 10;
-    background-color: var(--color-background);
-    color: var(--color-on-background);
-    border: 1px solid var(--color-background-hover);
+    left: -20px; 
+    z-index: 9999; 
+    background-color: var(--color-background, #ffffff);
+    color: var(--color-on-background, #000000);
+    border: none;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 0.8rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .page-list .meta-toggle-btn:hover {
     background-color: var(--color-background-hover);
     color: var(--color-on-background-hover);
+}
+
+.page-list .meta-toggle-btn:active {
+    transform: scale(0.95);
 }
 
 .page-list .list { 
