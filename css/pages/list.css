@@ -11,11 +11,25 @@
     padding-inline: 1rem; 
 } 
 
+/* Flexbox alignment handles centered expansion perfectly */
 .page-list .level-container {
     flex-grow: 1;
-    transition: max-width 0.3s ease;
+    display: flex;
+    justify-content: center;
+    transition: all 0.3s ease;
 }
 
+/* Level Content Setup */
+.page-list .level-container .level { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 2rem; 
+    padding-inline: 1rem;
+    width: 100%;
+    max-width: 48rem; /* Keeps layout proportional while allowing container to auto-center */
+} 
+
+/* Meta Sidebar Default Setup */
 .page-list .meta-container { 
     position: relative;
     padding-right: 2rem; 
@@ -25,9 +39,10 @@
     width: 100%;
 } 
 
+/* Hidden Sidebar Setup */
 .page-list .meta-container.meta-hidden {
-    min-width: 0px;
-    max-width: 0px;
+    min-width: 45px; /* Gives the toggle arrow button its own clear tracking channel */
+    max-width: 45px;
     padding-inline: 0;
     padding-right: 0;
 }
@@ -36,6 +51,7 @@
     display: none;
 }
 
+/* Floating Action Circle Button Hooked Safely into its own Stacking Context */
 .page-list .meta-toggle-btn {
     position: absolute;
     top: 2rem;
@@ -104,14 +120,6 @@
 .page-list .list .level.active button { 
     background-color: var(--color-primary); 
     color: var(--color-on-primary); 
-} 
-
-.page-list .level-container .level { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 2rem; 
-    padding-right: 2rem; 
-    max-width: 48rem; 
 } 
 
 .page-list .level-container .level .level-authors { 
