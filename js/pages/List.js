@@ -55,7 +55,7 @@ export default {
                             <p>{{ level.password || 'Free to Copy' }}</p>
                         </li>
                     </ul>
-                    <h2>Records</h2>
+                    <h2><h2>Records</h2>
                     <p v-if="selected + 1 <= 75"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
                     <p v-else-if="selected +1 <= 150"><strong>100%</strong> or better to qualify</p>
                     <p v-else>This level does not accept new records.</p>
@@ -80,7 +80,14 @@ export default {
                     <p>(ノಠ益ಠ)ノ彡┻━┻</p>
                 </div>
             </div>
-            <div class="meta-container">
+            
+            <div class="meta-container" :class="{ 'meta-hidden': !showMeta }">
+                
+                <button class="meta-toggle-btn" @click="showMeta = !showMeta">
+                    <span v-if="showMeta">▶</span>
+                    <span v-else>◀</span>
+                </button>
+
                 <div class="meta">
                     <div class="errors" v-show="errors.length > 0">
                         <p class="error" v-for="error of errors">{{ error }}</p>
@@ -95,46 +102,22 @@ export default {
                                 <img :src="\`/assets/\${roleIconMap[editor.role]}\${store.dark ? '-dark' : ''}.svg\`" :alt="editor.role">
                                 <a v-if="editor.link" class="type-label-lg link" target="_blank" :href="editor.link">{{ editor.name }}</a>
                                 <p v-else>{{ editor.name }}</p>
-                            </li>
+                            </td>
                         </ol>
                     </template>
                     <h3>Submission Requirements</h3>
-                    <p>
-                        Achieved the record without using hacks (however, FPS bypass is allowed, up to any fps)
-                    </p>
-                    <p>
-                    Forward from the date of June 12th 2026, we will no longer be accepting records that have no recording and do not follow the requirements.
-                     </p>
-                    <p>
-                       CBF may be utilized for records, but tps bypass is strictly prohibited.
-                     </p>
-                    <p>
-                       If no progress is made on an upcoming level in over 2 weeks, it will be removed from the list (Only applies to levels without significant progress of 70% or more)
-                     </p>
-                    <p>
-                      Unrated / Shitty levels may be added to the list, but only if their original version is not on the list. Submit levels to be added via the Discord.
-                     </p>
-                    <p>
-                        Achieved the record on the level that is listed on the site - please check the level ID before you submit a record
-                    </p>
-                    <p>
-                        Have either source audio or clicks/taps in the video. Edited audio only does not count
-                    </p>
-                    <p>
-                        The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt. Everyplay records are exempt from this
-                    </p>
-                    <p>
-                        The recording must also show the player hit the endwall, or the completion will be invalidated.
-                    </p>
-                    <p>
-                        Do not use secret routes or bug routes
-                    </p>
-                    <p>
-                        Do not use easy modes, only a record of the unmodified level qualifies
-                    </p>
-                    <p>
-                        Once a level falls onto the Legacy List, we accept records for it for 24 hours after it falls off, then afterwards we never accept records for said level
-                    </p>
+                    <p>Achieved the record without using hacks (however, FPS bypass is allowed, up to any fps)</p>
+                    <p>Forward from the date of June 12th 2026, we will no longer be accepting records that have no recording and do not follow the requirements.</p>
+                    <p>CBF may be utilized for records, but tps bypass is strictly prohibited.</p>
+                    <p>If no progress is made on an upcoming level in over 2 weeks, it will be removed from the list (Only applies to levels without significant progress of 70% or more)</p>
+                    <p>Unrated / Shitty levels may be added to the list, but only if their original version is not on the list. Submit levels to be added via the Discord.</p>
+                    <p>Achieved the record on the level that is listed on the site - please check the level ID before you submit a record</p>
+                    <p>Have either source audio or clicks/taps in the video. Edited audio only does not count</p>
+                    <p>The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt. Everyplay records are exempt from this</p>
+                    <p>The recording must also show the player hit the endwall, or the completion will be invalidated.</p>
+                    <p>Do not use secret routes or bug routes</p>
+                    <p>Do not use easy modes, only a record of the unmodified level qualifies</p>
+                    <p>Once a level falls onto the Legacy List, we accept records for it for 24 hours after it falls off, then afterwards we never accept records for said level</p>
                 </div>
             </div>
         </main>
@@ -146,7 +129,8 @@ export default {
         selected: 0,
         errors: [],
         roleIconMap,
-        store
+        store,
+        showMeta: true // Added reactive property to track sidebar visibility status
     }),
     computed: {
         level() {
@@ -165,11 +149,9 @@ export default {
         },
     },
     async mounted() {
-        // Hide loading spinner
         this.list = await fetchList();
         this.editors = await fetchEditors();
 
-        // Error handling
         if (!this.list) {
             this.errors = [
                 "Failed to load list. Retry in a few minutes or notify list staff.",
