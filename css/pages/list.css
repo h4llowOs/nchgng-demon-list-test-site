@@ -6,18 +6,52 @@
     padding-inline: 1rem; 
 } 
 
+/* Dynamic Setup for Meta Container Wrapper */
 .page-list .meta-container { 
+    position: relative;
     padding-right: 2rem; 
-    /* Smoothly animate when the width changes */
-    transition: min-width 0.3s ease, max-width 0.3s ease, padding 0.3s ease;
+    transition: min-width 0.3s ease, max-width 0.3s ease, padding 0.3s ease, width 0.3s ease;
     min-width: 300px;
     max-width: 350px;
+    width: 100%;
 } 
 
-/* Dynamic collapse layout when rules are turned off */
-.page-list .meta-container.rules-hidden {
-    min-width: 180px;
-    max-width: 220px;
+/* Styles when sidebar is hidden */
+.page-list .meta-container.meta-hidden {
+    min-width: 40px;
+    max-width: 40px;
+    padding-inline: 0;
+    padding-right: 0;
+}
+
+/* Hides all actual rules content inside panel when active */
+.page-list .meta-container.meta-hidden .meta {
+    display: none;
+}
+
+/* The toggle styling handle positioning */
+.page-list .meta-toggle-btn {
+    position: absolute;
+    top: 2rem;
+    left: -15px; /* Adjust slightly based on your exact layout borders */
+    z-index: 10;
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    border: 1px solid var(--color-background-hover);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.page-list .meta-toggle-btn:hover {
+    background-color: var(--color-background-hover);
+    color: var(--color-on-background-hover);
 }
 
 .page-list .list { 
