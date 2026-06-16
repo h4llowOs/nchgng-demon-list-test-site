@@ -1,0 +1,27 @@
+{
+    "id": 7054561,
+    "name": "Aleph 0",
+    "author": "Shiryuu7",
+    "creators": [],
+    "verifier": "lilbinladn",
+    "verification": "https://youtu.be/H7fcGHDACKU",
+    "showcase": "https://www.youtube.com/watch?v=vvIaD_7jt4E",
+    "percentToQualify": 85,
+    "password": "Free to Copy",
+    "records": [
+        {
+            "user": "Malikoonium",
+            "percent": 100,
+            "hz": 240,
+            "mobile": false,
+            "link": "https://www.youtube.com/watch?v=RduRely6NvY"
+        },
+          {
+            "user": "M4dd3r",
+            "percent": 100,
+            "hz": 144,
+            "mobile": false,
+            "link": "https://www.youtube.com/watch?v=qbfI1f_ahNs"
+        }
+    ]
+}

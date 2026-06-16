@@ -1,0 +1,23 @@
+.page-upcoming {
+    padding: 2rem;
+}
+
+.page-upcoming .upcoming-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-upcoming .upcoming-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.page-upcoming th,
+.page-upcoming td {
+    padding: 1rem;
+    text-align: left;
+}
+
+.page-upcoming tr {
+    border-bottom: 1px solid var(--color-outline);
+}

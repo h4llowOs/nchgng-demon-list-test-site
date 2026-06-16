@@ -1,0 +1,111 @@
+/* complete rewrites : 3 1. patch the lower site size 2. fix collapsing site size 3. same as 2 but it should actually work */ 
+:root {
+    --color-background: white; 
+    --color-on-background: black; 
+    --color-background-hover: #eee; 
+    --color-on-background-hover: black; 
+    --color-primary: #0066ff; 
+    --color-on-primary: white; 
+    --color-error: #de0000; 
+    --color-on-error: white; 
+} 
+
+main.dark, header.dark {
+    color-scheme: dark; 
+    --color-background: #1c1b1f; 
+    --color-on-background: white; 
+    --color-background-hover: #27262c; 
+    --color-on-background-hover: white; 
+    --color-primary: #283593; 
+    --color-primary-disabled: #1f213c; 
+    --color-on-primary: white; 
+    --color-error: #de0000; 
+    --color-on-error: white; 
+} 
+
+html, body {
+    height: 100%; 
+} 
+
+body {
+    display: flex; 
+    flex-direction: column; 
+    margin: 0; 
+} 
+
+/* changed layout columns to give the title auto-adjusting space instead of a rigid 16rem block */ 
+main {
+    background-color: var(--color-background); 
+    color: var(--color-on-background); 
+    display: grid; 
+    grid-template-columns: max-content minmax(16rem, 2fr) minmax(16rem, 1fr); 
+    column-gap: 2rem; 
+} 
+
+/* Completely overhauled header to use flexbox across all screen sizes to prevent grid text-clipping */
+header {
+    background-color: var(--color-primary); 
+    color: var(--color-on-primary); 
+    display: flex !important; 
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; 
+    height: 4rem; 
+    padding-inline: 2rem;
+    gap: 2rem;
+} 
+
+@media screen and (min-width: 1366px) {
+    header {
+        padding-inline: 4rem; /* Adds a bit more clean breathing room on desktop displays */
+    } 
+} 
+
+/* force the logo/title container to not squeeze its text content, like a puh */ 
+header .logo {
+    display: flex; 
+    align-items: center; 
+    gap: 1rem; 
+    white-space: nowrap !important; 
+    flex-shrink: 0 !important; 
+} 
+
+/* fix text properties for the list name link directly */ 
+header .logo a, header .logo span {
+    white-space: nowrap !important; 
+    display: inline-block !important; 
+} 
+
+header .nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    flex: 1; 
+} 
+
+main {
+    height: 0; 
+    flex: 1; 
+    display: grid; 
+    grid-template-rows: minmax(0, 1fr); 
+    column-gap: 2rem; 
+} 
+
+main > div {
+    overflow-y: auto; 
+} 
+
+.spinner {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    grid-column: span 3; 
+} 
+
+input[type="checkbox"] {
+    height: 1.25rem; 
+    width: 1.25rem; 
+    cursor: pointer; 
+    margin: 0; 
+}

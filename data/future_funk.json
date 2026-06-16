@@ -1,0 +1,27 @@
+{
+    "id": 44062068,
+    "name": "Future Funk",
+    "author": "JonathanGD",
+    "creators": [],
+    "verifier": "M4dd3r",
+    "verification": "https://www.youtube.com/watch?v=2CZM4Oi_hdA",
+    "showcase": "https://www.youtube.com/watch?v=2CZM4Oi_hdA",
+    "percentToQualify": 85,
+    "password": "Free to Copy",
+    "records": [
+        {
+            "user": "Malikoonium",
+            "percent": 100,
+            "hz": 240,
+            "mobile": false,
+            "link": "https://www.youtube.com/watch?v=x0K6xsu12q4"
+        },
+           {
+            "user": "h4llow",
+            "percent": 91,
+            "hz": "360",
+            "mobile": false,
+            "link": "https://www.youtube.com/watch?v=x0K6xsu12q4"
+        }
+    ]
+}

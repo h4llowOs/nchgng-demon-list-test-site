@@ -1,0 +1,72 @@
+[
+    {
+        "rank": 1,
+        "level": "Silentium Gradas",
+        "creator": "Stormfly",
+        "player": "LoafOfBread",
+        "points": 100,
+        "placement": "#695",
+        "progress": "40",
+        "verification": "https://www.youtube.com/watch?v=pkvupweIpPc"
+    },
+    {
+        "rank": 2,
+        "level": "Bloodbath",
+        "creator": "Riot & More",
+        "player": "h4llow",
+        "points": 95,
+        "placement": "#762",
+        "progress": "92, 33-100, 27-88",
+        "verification": "https://www.youtube.com/watch?v=LImo1W8TBM8&t=1583s"
+    },
+    {
+        "rank": 3,
+        "level": "Moment",
+        "creator": "Lexycat",
+        "player": "M4dd3r",
+        "points": 90,
+        "placement": "#772",
+        "progress": "95",
+        "verification": "https://www.youtube.com/watch?v=pkvupweIpPc"
+    },
+    {
+        "rank": 4,
+        "level": "Tuapeka",
+        "creator": "Feijoaoa",
+        "player": "h4llow",
+        "points": 85,
+        "placement": "#1087",
+        "progress": "59-100, 47-92",
+        "verification": "https://www.youtube.com/watch?v=pkvupweIpPc"
+    },
+    {
+        "rank": 5,
+        "level": "Cataclysm",
+        "creator": "Gboy",
+        "player": "M4dd3r",
+        "points": 80,
+        "placement": "#1356, ",
+        "progress": "86",
+        "verification": "https://www.youtube.com/watch?v=pkvupweIpPc"
+    },
+    {
+        "rank": 6,
+        "level": "Remlocked",
+        "creator": "DreamZoneGD",
+        "player": "purple neiro geometry dash",
+        "points": 70,
+        "placement": "NAED, 19.04 GDDL",
+        "progress": "18, 59-100",
+        "verification": "https://www.youtube.com/watch?v=pkvupweIpPc"
+    },
+   {
+         "rank": 7,
+        "level": "Future Funk II",
+        "creator": "JonathanGD",
+        "player": "Micah",
+        "points": 60,
+        "placement": "NAED, 17.80 GDDL",
+        "progress": "99",
+        "verification": "https://www.youtube.com/watch?v=pkvupweIpPc"
+   }
+]
