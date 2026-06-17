@@ -33,19 +33,30 @@ export default {
                         <div class="card-rank">
                             #{{ i + 1 <= 150 ? i + 1 : 'Legacy' }}
                         </div>
-                        <div class="card-thumbnail">
-                            <img 
-                                v-if="level" 
-                                :src="'https://img.youtube.com/vi/' + (level.verification || level.showcase).split('v=')[1]?.split('&')[0] + '/mqdefault.jpg'" 
-                                alt="Thumbnail"
-                            >
-                            <div v-else class="thumb-error">Error</div>
-                        </div>
-                        <div class="card-info">
-                            <h3 class="card-title">{{ level?.name || \`Error (\${err}.json)\` }}</h3>
-                            <p class="card-author" v-if="level">by {{ level.author }}</p>
-                            <p class="card-verifier" v-if="level">Verifier: {{ level.verifier }}</p>
-                            <p class="card-points" v-if="level">{{ score(i + 1, 100, level.percentToQualify) }} pts</p>
+                        
+                        <div class="card-body-wrapper">
+                            <div class="card-main-content">
+                                <div class="card-thumbnail">
+                                    <img 
+                                        v-if="level" 
+                                        :src="'https://img.youtube.com/vi/' + (level.verification || level.showcase).split('v=')[1]?.split('&')[0] + '/mqdefault.jpg'" 
+                                        alt="Thumbnail"
+                                    >
+                                    <div v-else class="thumb-error">Error</div>
+                                </div>
+                                <div class="card-info">
+                                    <h3 class="card-title">{{ level?.name || \`Error (\${err}.json)\` }}</h3>
+                                    <p class="card-author" v-if="level">by {{ level.author }}</p>
+                                    <p class="card-verifier" v-if="level">Verifier: {{ level.verifier }}</p>
+                                    <p class="card-points" v-if="level">{{ score(i + 1, 100, level.percentToQualify) }} pts</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card-tags" v-if="level && level.tags && level.tags.length">
+                                <span v-for="(tag, tagIndex) in level.tags" :key="tagIndex" class="tag-badge">
+                                    {{ tag }}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,7 +82,7 @@ export default {
                     </ul>
                     <h2>Records</h2>
                     <p v-if="selected + 1 <= 75"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
-                    <p v-else-if="selected +1 <= 150"><strong>100%</strong> or better to qualify</p>
+                    <p v-else-if="selected + 1 <= 150"><strong>100%</strong> or better to qualify</p>
                     <p v-else>This level does not accept new records.</p>
                     <table class="records">
                         <tr v-for="record in level.records" class="record">
@@ -117,42 +128,18 @@ export default {
                         </ol>
                     </template>
                     <h3>Submission Requirements</h3>
-                    <p>
-                        Achieved the record without using hacks (however, FPS bypass is allowed, up to any fps)
-                    </p>
-                    <p>
-                    Forward from the date of June 12th 2026, we will no longer be accepting records that have no recording and do not follow the requirements.
-                     </p>
-                    <p>
-                        CBF may be utilized for records, but tps bypass is strictly prohibited.
-                     </p>
-                    <p>
-                       If no progress is made on an upcoming level in over 2 weeks, it will be removed from the list (Only applies to levels without significant progress of 70% or more)
-                     </p>
-                    <p>
-                      Unrated / Shitty levels may be added to the list, but only if their original version is not on the list. Submit levels to be added via the Discord.
-                     </p>
-                    <p>
-                        Achieved the record on the level that is listed on the site - please check the level ID before you submit a record
-                    </p>
-                    <p>
-                        Have either source audio or clicks/taps in the video. Edited audio only does not count
-                    </p>
-                    <p>
-                        The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt. Everyplay records are exempt from this
-                    </p>
-                    <p>
-                        The recording must also show the player hit the endwall, or the completion will be invalidated.
-                    </p>
-                    <p>
-                        Do not use secret routes or bug routes
-                    </p>
-                    <p>
-                        Do not use easy modes, only a record of the unmodified level qualifies
-                    </p>
-                    <p>
-                        Once a level falls onto the Legacy List, we accept records for it for 24 hours after it falls off, then afterwards we never accept records for said level
-                    </p>
+                    <p>Achieved the record without using hacks (however, FPS bypass is allowed, up to any fps)</p>
+                    <p>Forward from the date of June 12th 2026, we will no longer be accepting records that have no recording and do not follow the requirements.</p>
+                    <p>CBF may be utilized for records, but tps bypass is strictly prohibited.</p>
+                    <p>If no progress is made on an upcoming level in over 2 weeks, it will be removed from the list (Only applies to levels without significant progress of 70% or more)</p>
+                    <p>Unrated / Shitty levels may be added to the list, but only if their original version is not on the list. Submit levels to be added via the Discord.</p>
+                    <p>Achieved the record on the level that is listed on the site - please check the level ID before you submit a record</p>
+                    <p>Have either source audio or clicks/taps in the video. Edited audio only does not count</p>
+                    <p>The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt. Everyplay records are exempt from this</p>
+                    <p>The recording must also show the player hit the endwall, or the completion will be invalidated.</p>
+                    <p>Do not use secret routes or bug routes</p>
+                    <p>Do not use easy modes, only a record of the unmodified level qualifies</p>
+                    <p>Once a level falls onto the Legacy List, we accept records for it for 24 hours after it falls off, then afterwards we never accept records for said level</p>
                 </div>
             </div>
         </main>
@@ -175,12 +162,11 @@ export default {
             if (!this.level.showcase) {
                 return embed(this.level.verification);
             }
-
             return embed(
                 this.toggledShowcase
                     ? this.level.showcase
                     : this.level.verification
-                );
+            );
         },
     },
     async mounted() {
@@ -203,7 +189,6 @@ export default {
                 this.errors.push("Failed to load list editors.");
             }
         }
-
         this.loading = false;
     },
     methods: {
