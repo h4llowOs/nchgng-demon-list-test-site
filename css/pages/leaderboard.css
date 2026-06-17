@@ -1,93 +1,332 @@
-.page-leaderboard-container {
-    display: block;
+.page-list, 
+.page-list * {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
 }
-.page-leaderboard {
-    height: 100%;
-    display: grid;
-    grid-template-columns: minmax(24rem, 2fr) 3fr;
-    grid-template-rows: max-content 1fr;
-    column-gap: 2rem;
-    max-width: 80rem;
-    margin: 0 auto;
-}
-.page-leaderboard > div {
-    overflow-y: auto;
-}
-.page-leaderboard .error-container {
-    grid-row: 1;
-    grid-column: 1 / span 2;
-}
-.page-leaderboard .error-container .error {
-    padding: 1rem;
-    background-color: var(--color-error);
-    color: var(--color-on-error);
-}
-.page-leaderboard .board-container,
-.page-leaderboard .player-container {
-    grid-row: 2;
-    padding-block: 2rem;
-}
-.page-leaderboard .board-container {
-    padding-inline: 1rem;
-}
-.page-leaderboard .board {
-    table-layout: auto;
-    display: block;
+
+.page-list {
+    display: flex;
     width: 100%;
 }
-.page-leaderboard .board .rank {
-    padding-block: 1rem;
-    text-align: end;
+
+.page-list .list-container, .page-list .level-container, .page-list .meta-container { 
+    padding-block: 2rem; 
+} 
+
+.page-list .list-container { 
+    padding-inline: 1rem; 
+    min-width: 480px;
+    max-width: 560px;
+    width: 100%;
+} 
+
+.page-list .list-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
 }
-.page-leaderboard .board .total {
-    padding: 1rem;
-    text-align: end;
-}
-.page-leaderboard .board .user {
+
+.page-list .level-card-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     width: 100%;
 }
-.page-leaderboard .board .user button {
+
+.page-list .level-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
     background-color: var(--color-background);
     color: var(--color-on-background);
-    border: none;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    text-align: start;
-    word-break: normal;
-    overflow-wrap: anywhere;
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    user-select: none;
+    flex-grow: 1;
 }
-.page-leaderboard .board .user button:hover {
+
+.page-list .level-card:hover {
     background-color: var(--color-background-hover);
     color: var(--color-on-background-hover);
-    cursor: pointer;
 }
-.page-leaderboard .board .user.active button {
+
+.page-list .level-card.active {
     background-color: var(--color-primary);
     color: var(--color-on-primary);
 }
-.page-leaderboard .player {
+
+.page-list .level-card.error {
+    color: var(--color-error);
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.page-list .card-rank {
+    font-weight: 800;
+    font-size: 1.4rem;
+    min-width: 2.75rem;
+    margin-top: 0.4rem;
+}
+
+.page-list .card-body-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    padding-right: 2rem;
+    gap: 0.75rem;
+    flex-grow: 1;
+    overflow: hidden;
 }
-.page-leaderboard .player .table {
-    table-layout: fixed;
+
+.page-list .card-main-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
-.page-leaderboard .player .table tr td:not(:last-child) {
-    padding-right: 2rem;
+
+.page-list .card-thumbnail {
+    width: 144px;
+    height: 81px;
+    background-color: #000;
+    border-radius: 0.35rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
-.page-leaderboard .player .table p,
-.page-leaderboard .player .table a {
-    padding-block: 1rem;
+
+.page-list .card-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
-.page-leaderboard .player .table .rank p,
-.page-leaderboard .player .table .score p {
-    text-align: end;
+
+.page-list .thumb-error {
+    color: #fff;
+    font-size: 0.8rem;
 }
-.page-leaderboard .player .table .level {
+
+.page-list .card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    overflow: hidden;
+}
+
+.page-list .card-title {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.page-list .card-author,
+.page-list .card-verifier,
+.page-list .card-points {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.85;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.page-list .card-points {
+    font-weight: 700;
+}
+
+.page-list .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
     width: 100%;
 }
-.page-leaderboard .player .table a:hover {
-    text-decoration: underline;
+
+.page-list .tag-badge {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.page-list .level-card.active .tag-badge {
+    background-color: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.page-list .card-external-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    flex-shrink: 0;
+}
+
+.page-list .card-external-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.page-list .level-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.page-list .level-container .level { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 2rem; 
+    padding-inline: 1rem;
+    width: 100%;
+    max-width: 48rem;
+} 
+
+.page-list .meta-container { 
+    position: relative;
+    padding-right: 2rem; 
+    transition: min-width 0.3s ease, max-width 0.3s ease, padding 0.3s ease, width 0.3s ease;
+    min-width: 300px;
+    max-width: 350px;
+    width: 100%;
+} 
+
+.page-list .meta-container.meta-hidden {
+    min-width: 45px; 
+    max-width: 45px;
+    padding-inline: 0;
+    padding-right: 0;
+}
+
+.page-list .meta-container.meta-hidden .meta {
+    display: none;
+}
+
+.page-list .meta-toggle-btn {
+    position: absolute;
+    top: 2rem;
+    left: -20px; 
+    z-index: 9999; 
+    background-color: var(--color-background, #ffffff);
+    color: var(--color-on-background, #000000);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.page-list .meta-toggle-btn:hover {
+    background-color: var(--color-background-hover);
+    color: var(--color-on-background-hover);
+}
+
+.page-list .meta-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.page-list .level-container .level .level-authors { 
+    display: grid; 
+    grid-template-columns: max-content 1fr; 
+    grid-auto-rows: max-content; 
+    gap: 1rem; 
+} 
+
+.page-list .level-container .level .video { 
+    aspect-ratio: 16/9; 
+} 
+
+.page-list .level-container .level .stats { 
+    display: flex; 
+    justify-content: space-evenly; 
+    text-align: center; 
+    gap: 2rem; 
+} 
+
+.page-list .level-container .level .stats li { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 1rem; 
+} 
+
+.page-list .level-container .level .records { 
+    table-layout: fixed; 
+} 
+
+.page-list .level-container .level .records tr td:not(:last-child) { 
+    padding-right: 1rem; 
+} 
+
+.page-list .level-container .level .records .percent, 
+.page-list .level-container .level .records .user, 
+.page-list .level-container .level .records .hz { 
+    padding-block: 1rem; 
+} 
+
+.page-list .level-container .level .records .user { 
+    width: 100%; 
+} 
+
+.page-list .level-container .level .records .percent, 
+.page-list .level-container .level .records .hz { 
+    text-align: end; 
+} 
+
+.page-list .meta-container .og a:hover, 
+.page-list .level-container .level .records a:hover { 
+    text-decoration: underline; 
+} 
+
+.page-list .meta { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 2rem; 
+} 
+
+.page-list .meta .errors { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1rem; 
+} 
+
+.page-list .meta .errors .error { 
+    padding: 1rem; 
+    background-color: var(--color-error); 
+    color: var(--color-on-error); 
+    border-radius: 0.5rem; 
+} 
+
+.page-list .meta .editors { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 0.75rem; 
+} 
+
+.page-list .meta .editors li { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.5rem; 
+} 
+
+.page-list .meta .editors li img { 
+    height: 1.25rem; 
+} 
+
+.page-list .meta .editors li a:hover { 
+    text-decoration: underline; 
 }
