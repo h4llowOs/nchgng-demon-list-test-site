@@ -22,19 +22,33 @@ export default {
         </main>
         <main v-else class="page-list">
             <div class="list-container">
-                <table class="list" v-if="list">
-                    <tr v-for="([level, err], i) in list">
-                        <td class="rank">
-                            <p v-if="i + 1 <= 150" class="type-label-lg">#{{ i + 1 }}</p>
-                            <p v-else class="type-label-lg">Legacy</p>
-                        </td>
-                        <td class="level" :class="{ 'active': selected == i, 'error': !level }">
-                            <button @click="selected = i">
-                                <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
-                            </button>
-                        </td>
-                    </tr>
-                </table>
+                <div class="list-cards" v-if="list">
+                    <div 
+                        v-for="([level, err], i) in list" 
+                        :key="i"
+                        class="level-card" 
+                        :class="{ 'active': selected == i, 'error': !level }"
+                        @click="level && (selected = i)"
+                    >
+                        <div class="card-rank">
+                            #{{ i + 1 <= 150 ? i + 1 : 'Legacy' }}
+                        </div>
+                        <div class="card-thumbnail">
+                            <img 
+                                v-if="level" 
+                                :src="'https://img.youtube.com/vi/' + (level.verification || level.showcase).split('v=')[1]?.split('&')[0] + '/mqdefault.jpg'" 
+                                alt="Thumbnail"
+                            >
+                            <div v-else class="thumb-error">Error</div>
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title">{{ level?.name || \`Error (\${err}.json)\` }}</h3>
+                            <p class="card-author" v-if="level">by {{ level.author }}</p>
+                            <p class="card-verifier" v-if="level">Verifier: {{ level.verifier }}</p>
+                            <p class="card-points" v-if="level">{{ score(i + 1, 100, level.percentToQualify) }} pts</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="level-container">
                 <div class="level" v-if="level">
@@ -155,7 +169,7 @@ export default {
     }),
     computed: {
         level() {
-            return this.list[this.selected][0];
+            return this.list[this.selected]?.[0];
         },
         video() {
             if (!this.level.showcase) {
@@ -166,7 +180,7 @@ export default {
                 this.toggledShowcase
                     ? this.level.showcase
                     : this.level.verification
-            );
+                );
         },
     },
     async mounted() {
