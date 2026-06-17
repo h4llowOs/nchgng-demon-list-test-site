@@ -1,4 +1,4 @@
-/* fuckin with le fonts */
+/* Unify all layout styling fonts uniformly to target bugs */
 .page-list, 
 .page-list * {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
