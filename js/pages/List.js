@@ -26,45 +26,37 @@ export default {
                     <div 
                         v-for="([level, err], i) in list" 
                         :key="i"
-                        class="level-card-wrapper"
+                        class="level-card" 
+                        :class="{ 'active': selected == i, 'error': !level }"
+                        @click="level && (selected = i)"
                     >
-                        <div 
-                            class="level-card" 
-                            :class="{ 'active': selected == i, 'error': !level }"
-                            @click="level && (selected = i)"
-                        >
-                            <div class="card-rank">
-                                #{{ i + 1 <= 150 ? i + 1 : 'Legacy' }}
+                        <div class="card-rank">
+                            #{{ i + 1 <= 150 ? i + 1 : 'Legacy' }}
+                        </div>
+                        
+                        <div class="card-body-wrapper">
+                            <div class="card-main-content">
+                                <div class="card-thumbnail">
+                                    <img 
+                                        v-if="level" 
+                                        :src="'https://img.youtube.com/vi/' + (level.verification || level.showcase).split('v=')[1]?.split('&')[0] + '/mqdefault.jpg'" 
+                                        alt="Thumbnail"
+                                    >
+                                    <div v-else class="thumb-error">Error</div>
+                                </div>
+                                <div class="card-info">
+                                    <h3 class="card-title">{{ level?.name || \`Error (\${err}.json)\` }}</h3>
+                                    <p class="card-author" v-if="level">by {{ level.author }}</p>
+                                    <p class="card-verifier" v-if="level">Verifier: {{ level.verifier }}</p>
+                                    <p class="card-points" v-if="level">{{ score(i + 1, 100, level.percentToQualify) }} pts</p>
+                                </div>
                             </div>
                             
-                            <div class="card-body-wrapper">
-                                <div class="card-main-content">
-                                    <div class="card-thumbnail">
-                                        <img 
-                                            v-if="level" 
-                                            :src="'https://img.youtube.com/vi/' + (level.verification || level.showcase).split('v=')[1]?.split('&')[0] + '/mqdefault.jpg'" 
-                                            alt="Thumbnail"
-                                        >
-                                        <div v-else class="thumb-error">Error</div>
-                                    </div>
-                                    <div class="card-info">
-                                        <h3 class="card-title">{{ level?.name || \`Error (\${err}.json)\` }}</h3>
-                                        <p class="card-author" v-if="level">by {{ level.author }}</p>
-                                        <p class="card-verifier" v-if="level">Verifier: {{ level.verifier }}</p>
-                                        <p class="card-points" v-if="level">{{ score(i + 1, 100, level.percentToQualify) }} pts</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="card-tags" v-if="level && level.tags && level.tags.length">
-                                    <span v-for="(tag, tagIndex) in level.tags" :key="tagIndex" class="tag-badge">
-                                        {{ tag }}
-                                    </span>
-                                </div>
+                            <div class="card-tags" v-if="level && level.tags && level.tags.length">
+                                <span v-for="(tag, tagIndex) in level.tags" :key="tagIndex" class="tag-badge">
+                                    {{ tag }}
+                                </span>
                             </div>
-                        </div>
-
-                        <div class="card-external-icon" v-if="level">
-                            <img src="https://static.wikia.nocookie.net/geometry-dash-unofficial/images/3/36/Extreme_Demon.png/revision/latest?cb=20180214082927" alt="Extreme Demon">
                         </div>
                     </div>
                 </div>
@@ -123,6 +115,7 @@ export default {
                         <p class="error" v-for="error of errors">{{ error }}</p>
                     </div>
                     <div class="og">
+                        <p class="type-label-md">Website layout made by <a href="https://tsl.pages.dev/" target="_blank">TheShittyList</a></p>
                     </div>
                     <template v-if="editors">
                         <h3>List Editors</h3>
